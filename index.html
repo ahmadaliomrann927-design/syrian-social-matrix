@@ -3,102 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syrian Social Matrix 🚀</title>
+    <title>الشبكة السورية الكبرى - Elite Matrix 💀</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f0f2f5; color: #333; padding: 10px; }
-        .container { max-width: 500px; margin: 0 auto; }
-        header { background: #1877f2; color: white; padding: 15px; text-align: center; border-radius: 8px; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .post-box, .post-card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        textarea { width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; resize: none; font-size: 0.95rem; margin-bottom: 10px; }
-        input[type="text"] { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; font-size: 0.9rem; }
-        button { background: #1877f2; color: white; border: none; padding: 10px 15px; border-radius: 6px; width: 100%; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-        button:hover { background: #165fe5; }
-        .post-author { font-weight: bold; color: #1877f2; margin-bottom: 5px; font-size: 0.95rem; }
-        .post-time { font-size: 0.75rem; color: #888; margin-top: 8px; }
-        .post-content { font-size: 0.95rem; line-height: 1.4; word-break: break-word; }
+        body { background-color: #0f1115; color: #e1e1e6; padding: 10px; }
+        .container { max-width: 550px; margin: 0 auto; }
+        
+        /* الهيدر الأسطوري */
+        header { background: linear-gradient(135deg, #1f2029, #111318); color: #00ffcc; padding: 18px; text-align: center; border-radius: 12px; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; border: 1px solid #2a2e3d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); letter-spacing: 1px; }
+
+        /* شريط القصص (Stories) */
+        .stories-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 15px; scrollbar-width: none; }
+        .story-circle { min-width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(45deg, #00ffcc, #7928ca); padding: 2px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-direction: column; }
+        .story-inner { width: 100%; height: 100%; background: #181b22; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff; text-align: center; overflow: hidden; padding: 5px; }
+
+        /* صناديق النشر والمنشورات */
+        .post-box, .post-card { background: #181b22; padding: 18px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #2a2e3d; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        textarea, input[type="text"] { width: 100%; background: #111318; border: 1px solid #2a2e3d; border-radius: 8px; color: #fff; padding: 12px; font-size: 0.95rem; margin-bottom: 10px; outline: none; transition: border 0.2s; }
+        textarea:focus, input[type="text"]:focus { border-color: #00ffcc; }
+        textarea { height: 90px; resize: none; }
+        
+        button { background: linear-gradient(135deg, #00ffcc, #00b894); color: #0f1115; border: none; padding: 12px; border-radius: 8px; width: 100%; font-size: 1rem; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
+        button:hover { opacity: 0.9; }
+
+        .post-author { font-weight: bold; color: #00ffcc; margin-bottom: 5px; font-size: 1rem; }
+        .post-content { font-size: 0.95rem; line-height: 1.5; word-break: break-word; margin-bottom: 10px; }
+        
+        /* دعم عرض الصور وفيديوهات الـ Web */
+        .media-container { width: 100%; max-height: 350px; border-radius: 8px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; }
+        .media-container img, .media-container video { width: 100%; max-height: 350px; object-fit: contain; }
+
+        .post-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #888; border-top: 1px solid #2a2e3d; padding-top: 10px; margin-top: 10px; }
+        .like-btn { background: transparent; border: 1px solid #2a2e3d; color: #ff4757; width: auto; padding: 5px 12px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .like-btn:hover { background: rgba(255, 71, 87, 0.1); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>الشبكة السورية الكبرى 🚀</header>
+    <header>الشبكة السورية الكبرى 💀🔥</header>
 
-    <!-- صندوق نشر منشور جديد -->
-    <div class="post-box">
-        <input type="text" id="authorName" placeholder="اسمك الكريم (مثلاً: أحمد علي عمران)..." value="أحمد علي عمران">
-        <textarea id="postContent" placeholder="بشو عم تفكر يا ملك؟..."></textarea>
-        <button onclick="createPost()">نشر على الشبكة 🔥</button>
+    <!-- شريط القصص (Stories) -->
+    <div class="stories-container" id="storiesBar">
+        <div class="story-circle" onclick="promptAddStory()">
+            <div class="story-inner">+ قصة</div>
+        </div>
     </div>
 
-    <!-- حائط المنشورات (Feed) -->
+    <!-- صندوق النشر (يدعم نصوص + صور/فيديوهات) -->
+    <div class="post-box">
+        <input type="text" id="authorName" placeholder="اسمك الكريم (الـ GOAT)..." value="أحمد علي عمران">
+        <textarea id="postContent" placeholder="بشو عم تخطط يا ملك؟..."></textarea>
+        <input type="text" id="mediaUrl" placeholder="رابط فيديو أو صورة (اختياري)...">
+        <button onclick="createPost()">إطلاق المنشور في الإمبراطورية 🚀</button>
+    </div>
+
+    <!-- الحائط الرئيسي (Feed) -->
     <div id="postsFeed">
-        <p style="text-align: center; color: #777;">جاري تحميل المنشورات...</p>
+        <p style="text-align: center; color: #777;">جاري استدعاء البيانات من السيرفر المرعب...</p>
     </div>
 </div>
 
 <script>
-    // رابط الباك إند الحقيقي المربوط بسيرفر Render الخاص بك
+    // رابط الباك إند الحي الخاص بك على Render
     const API_URL = "https://syrian-social-matrix.onrender.com";
 
     async function fetchFeed() {
         try {
-            let response = await fetch(`${API_URL}/api/posts/feed`);
-            let data = await response.json();
-            let feedContainer = document.getElementById("postsFeed");
-            
+            let res = await fetch(`${API_URL}/api/feed`);
+            let data = await res.json();
+            let feed = document.getElementById("postsFeed");
+
             if (data.feed.length === 0) {
-                feedContainer.innerHTML = '<p style="text-align: center; color: #777;">لا توجد منشورات حتى الآن. كن أول من ينشر! 🖤</p>';
+                feed.innerHTML = '<p style="text-align: center; color: #777;">الإمبراطورية هادئة جداً الآن.. كن أول من يشعلها! 🔥</p>';
                 return;
             }
 
-            feedContainer.innerHTML = "";
-            data.feed.forEach(post => {
+            feed.innerHTML = "";
+            data.feed.forEach(p => {
                 let card = document.createElement("div");
                 card.className = "post-card";
+                
+                let mediaHtml = "";
+                if (p.media_url) {
+                    // فحص بسيط إذا كان الرابط فيديو أو صورة
+                    if (p.media_url.includes(".mp4") || p.media_url.includes("video")) {
+                        mediaHtml = `<div class="media-container"><video src="${p.media_url}" controls></video></div>`;
+                    } else {
+                        mediaHtml = `<div class="media-container"><img src="${p.media_url}" alt="Media"></div>`;
+                    }
+                }
+
                 card.innerHTML = `
-                    <div class="post-author">${post.author}</div>
-                    <div class="post-content">${post.content}</div>
-                    <div class="post-time">${post.timestamp}</div>
+                    <div class="post-author">${p.author}</div>
+                    <div class="post-content">${p.content}</div>
+                    ${mediaHtml}
+                    <div class="post-footer">
+                        <span>${p.timestamp}</span>
+                        <button class="like-btn" onclick="likePost(${p.id})">❤️ <span id="likes-${p.id}">${p.likes}</span></button>
+                    </div>
                 `;
-                feedContainer.appendChild(card);
+                feed.appendChild(card);
             });
-        } catch (error) {
-            console.error("خطأ في الاتصال بالباك إند:", error);
-            document.getElementById("postsFeed").innerHTML = '<p style="text-align: center; color: red;">فشل الاتصال بالسيرفر. تأكد من عمل الباك إند! ⚠️</p>';
+        } catch (e) {
+            console.error(e);
+            document.getElementById("postsFeed").innerHTML = '<p style="text-align: center; color: #ff4757;">خطأ في الاتصال بالقلب النابض للسيرفر! ⚠️</p>';
         }
     }
 
     async function createPost() {
         let author = document.getElementById("authorName").value.trim();
         let content = document.getElementById("postContent").value.trim();
+        let media_url = document.getElementById("mediaUrl").value.trim();
 
-        if (!content) {
-            alert("لا يمكن نشر محتوى فارغ يا ملك!");
+        if (!content && !media_url) {
+            alert("ما يصير تنشر فراغ يا ملك!");
             return;
         }
 
         try {
-            let response = await fetch(`${API_URL}/api/posts/create`, {
+            let res = await fetch(`${API_URL}/api/post/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ author: author, content: content })
+                body: JSON.stringify({ author, content, media_url })
             });
 
-            let result = await response.json();
-            if (response.ok) {
+            if (res.ok) {
                 document.getElementById("postContent").value = "";
-                fetchFeed(); // تحديث الحائط فوراً
+                document.getElementById("mediaUrl").value = "";
+                fetchFeed();
             } else {
-                alert(result.error || "حدث خطأ ما");
+                alert("حدث خطأ أثناء النشر.");
             }
-        } catch (error) {
-            alert("تعذر الاتصال بالسيرفر لإرسال المنشور.");
+        } catch (e) {
+            alert("فشل الاتصال بالسيرفر.");
         }
     }
 
-    // جلب المنشورات عند فتح الصفحة
+    async function likePost(id) {
+        try {
+            let res = await fetch(`${API_URL}/api/post/like/${id}`, { method: "POST" });
+            let data = await res.json();
+            document.getElementById(`likes-${id}`).innerText = data.likes;
+        } catch (e) {
+            console.error("فشل تسجيل الإعجاب");
+        }
+    }
+
+    async function fetchStories() {
+        try {
+            let res = await fetch(`${API_URL}/api/stories`);
+            let data = await res.json();
+            let bar = document.getElementById("storiesBar");
+            
+            // ابقاء زر إضافة قصة أولاً
+            bar.innerHTML = `
+                <div class="story-circle" onclick="promptAddStory()">
+                    <div class="story-inner">+ قصة</div>
+                </div>
+            `;
+
+            data.stories.forEach(s => {
+                let div = document.createElement("div");
+                div.className = "story-circle";
+                div.innerHTML = `<div class="story-inner">${s.author}</div>`;
+                div.onclick = () => window.open(s.media_url, '_blank');
+                bar.appendChild(div);
+            });
+        } catch (e) {}
+    }
+
+    async function promptAddStory() {
+        let author = document.getElementById("authorName").value.trim() || "الـ GOAT";
+        let media_url = prompt("أدخل رابط الوسائط أو الفيديو الخاص بالقصة (Story):");
+        if (!media_url) return;
+
+        let res = await fetch(`${API_URL}/api/story/create`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ author, media_url })
+        });
+
+        if (res.ok) {
+            fetchStories();
+            alert("تم بث القصة بنجاح 🚀");
+        }
+    }
+
+    // التشغيل والتحميل التلقائي
     fetchFeed();
+    fetchStories();
 </script>
 
 </body>
