@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syrian Social Matrix 🚀</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; padding: 10px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        header { background: #1877f2; color: white; padding: 15px; text-align: center; border-radius: 8px; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .post-box, .post-card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        textarea { width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; resize: none; font-size: 0.95rem; margin-bottom: 10px; }
+        input[type="text"] { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; font-size: 0.9rem; }
+        button { background: #1877f2; color: white; border: none; padding: 10px 15px; border-radius: 6px; width: 100%; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #165fe5; }
+        .post-author { font-weight: bold; color: #1877f2; margin-bottom: 5px; font-size: 0.95rem; }
+        .post-time { font-size: 0.75rem; color: #888; margin-top: 8px; }
+        .post-content { font-size: 0.95rem; line-height: 1.4; word-break: break-word; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>الشبكة السورية الكبرى 🚀</header>
+
+    <!-- صندوق نشر منشور جديد -->
+    <div class="post-box">
+        <input type="text" id="authorName" placeholder="اسمك الكريم (مثلاً: أحمد علي عمران)..." value="أحمد علي عمران">
+        <textarea id="postContent" placeholder="بشو عم تفكر يا ملك؟..."></textarea>
+        <button onclick="createPost()">نشر على الشبكة 🔥</button>
+    </div>
+
+    <!-- حائط المنشورات (Feed) -->
+    <div id="postsFeed">
+        <p style="text-align: center; color: #777;">جاري تحميل المنشورات...</p>
+    </div>
+</div>
+
+<script>
+    // رابط الباك إند الخاص بك (يمكنك استبداله برابط سيرفرك لاحقاً عند نشره على Render أو PythonAnywhere)
+    const API_URL = "http://127.0.0.1:5000";
+
+    async function fetchFeed() {
+        try {
+            let response = await fetch(`${API_URL}/api/posts/feed`);
+            let data = await response.json();
+            let feedContainer = document.getElementById("postsFeed");
+            
+            if (data.feed.length === 0) {
+                feedContainer.innerHTML = '<p style="text-align: center; color: #777;">لا توجد منشورات حتى الآن. كن أول من ينشر! 🖤</p>';
+                return;
+            }
+
+            feedContainer.innerHTML = "";
+            data.feed.forEach(post => {
+                let card = document.createElement("div");
+                card.className = "post-card";
+                card.innerHTML = `
+                    <div class="post-author">${post.author}</div>
+                    <div class="post-content">${post.content}</div>
+                    <div class="post-time">${post.timestamp}</div>
+                `;
+                feedContainer.appendChild(card);
+            });
+        } catch (error) {
+            console.error("خطأ في الاتصال بالباك إند:", error);
+            document.getElementById("postsFeed").innerHTML = '<p style="text-align: center; color: red;">فشل الاتصال بالسيرفر. تأكد من عمل الباك إند! ⚠️</p>';
+        }
+    }
+
+    async function createPost() {
+        let author = document.getElementById("authorName").value.trim();
+        let content = document.getElementById("postContent").value.trim();
+
+        if (!content) {
+            alert("لا يمكن نشر محتوى فارغ يا ملك!");
+            return;
+        }
+
+        try {
+            let response = await fetch(`${API_URL}/api/posts/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ author: author, content: content })
+            });
+
+            let result = await response.json();
+            if (response.ok) {
+                document.getElementById("postContent").value = "";
+                fetchFeed(); // تحديث الحائط فوراً
+            } else {
+                alert(result.error || "حدث خطأ ما");
+            }
+        } catch (error) {
+            alert("تعذر الاتصال بالسيرفر لإرسال المنشور.");
+        }
+    }
+
+    // جلب المنشورات عند فتح الصفحة
+    fetchFeed();
+</script>
+
+</body>
+</html>
