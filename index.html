@@ -3,79 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الشبكة السورية الكبرى - Elite Matrix 💀</title>
+    <title>الشبكة السورية الكبرى | Elite Matrix</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f1115; color: #e1e1e6; padding: 10px; }
-        .container { max-width: 550px; margin: 0 auto; }
+        :root {
+            --bg-color: #0b0e14;
+            --card-bg: #151a23;
+            --border-color: #222b3b;
+            --accent-color: #00f2fe;
+            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
         
-        /* الهيدر الأسطوري */
-        header { background: linear-gradient(135deg, #1f2029, #111318); color: #00ffcc; padding: 18px; text-align: center; border-radius: 12px; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; border: 1px solid #2a2e3d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); letter-spacing: 1px; }
-
-        /* شريط القصص (Stories) */
-        .stories-container { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 15px; scrollbar-width: none; }
-        .story-circle { min-width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(45deg, #00ffcc, #7928ca); padding: 2px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-direction: column; }
-        .story-inner { width: 100%; height: 100%; background: #181b22; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff; text-align: center; overflow: hidden; padding: 5px; }
-
-        /* صناديق النشر والمنشورات */
-        .post-box, .post-card { background: #181b22; padding: 18px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #2a2e3d; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        textarea, input[type="text"] { width: 100%; background: #111318; border: 1px solid #2a2e3d; border-radius: 8px; color: #fff; padding: 12px; font-size: 0.95rem; margin-bottom: 10px; outline: none; transition: border 0.2s; }
-        textarea:focus, input[type="text"]:focus { border-color: #00ffcc; }
-        textarea { height: 90px; resize: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
         
-        button { background: linear-gradient(135deg, #00ffcc, #00b894); color: #0f1115; border: none; padding: 12px; border-radius: 8px; width: 100%; font-size: 1rem; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
-        button:hover { opacity: 0.9; }
-
-        .post-author { font-weight: bold; color: #00ffcc; margin-bottom: 5px; font-size: 1rem; }
-        .post-content { font-size: 0.95rem; line-height: 1.5; word-break: break-word; margin-bottom: 10px; }
+        .app-container { width: 100%; max-width: 600px; }
         
-        /* دعم عرض الصور وفيديوهات الـ Web */
-        .media-container { width: 100%; max-height: 350px; border-radius: 8px; overflow: hidden; margin-bottom: 10px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .media-container img, .media-container video { width: 100%; max-height: 350px; object-fit: contain; }
+        /* الهيدر الاحترافي الفخم */
+        header { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color);
+            padding: 20px; 
+            text-align: center; 
+            border-radius: 16px; 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            background-image: linear-gradient(to bottom, #151a23, #10141c);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+            color: #fff;
+            border-bottom: 3px solid #00f2fe;
+        }
 
-        .post-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #888; border-top: 1px solid #2a2e3d; padding-top: 10px; margin-top: 10px; }
-        .like-btn { background: transparent; border: 1px solid #2a2e3d; color: #ff4757; width: auto; padding: 5px 12px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-        .like-btn:hover { background: rgba(255, 71, 87, 0.1); }
+        /* شريط القصص (Stories) الفاخر */
+        .stories-wrapper { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; scrollbar-width: none; }
+        .story-item { min-width: 75px; height: 75px; border-radius: 50%; background: var(--accent-gradient); padding: 2px; cursor: pointer; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+        .story-avatar { width: 100%; height: 100%; background: var(--card-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; font-weight: 600; text-align: center; overflow: hidden; padding: 4px; }
+
+        /* صناديق النشر والإدخال */
+        .card-box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 8px 24px rgba(0,0,0.3); }
+        
+        .input-group { margin-bottom: 12px; }
+        input[type="text"], textarea { 
+            width: 100%; 
+            background: #0d1117; 
+            border: 1px solid var(--border-color); 
+            border-radius: 10px; 
+            color: #fff; 
+            padding: 14px; 
+            font-size: 0.95rem; 
+            outline: none; 
+            transition: all 0.3s ease; 
+        }
+        input[type="text"]:focus, textarea:focus { border-color: #00f2fe; box-shadow: 0 0 10px rgba(0,242,254,0.2); }
+        textarea { height: 100px; resize: none; }
+        
+        .btn-primary { 
+            background: var(--accent-gradient); 
+            color: #0b0e14; 
+            border: none; 
+            padding: 14px; 
+            border-radius: 10px; 
+            width: 100%; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: transform 0.2s, opacity 0.2s; 
+            box-shadow: 0 4px 15px rgba(0,242,254,0.3);
+        }
+        .btn-primary:active { transform: scale(0.98); }
+
+        /* تصميم كرت المنشورات الاحترافي */
+        .post-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .post-header { display: flex; align-items: center; margin-bottom: 12px; }
+        .post-author { font-weight: 700; color: #00f2fe; font-size: 1.05rem; }
+        .post-content { font-size: 1rem; line-height: 1.6; color: #cbd5e1; word-break: break-word; margin-bottom: 14px; }
+        
+        .media-box { width: 100%; max-height: 400px; border-radius: 12px; overflow: hidden; background: #000; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; }
+        .media-box img, .media-box video { width: 100%; max-height: 400px; object-fit: contain; }
+
+        .post-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 12px; font-size: 0.85rem; color: var(--text-muted); }
+        
+        .like-btn { 
+            background: rgba(255, 71, 87, 0.1); 
+            border: 1px solid rgba(255, 71, 87, 0.3); 
+            color: #ff4757; 
+            padding: 8px 16px; 
+            font-size: 0.9rem; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .like-btn:hover { background: rgba(255, 71, 87, 0.2); }
+        
+        .status-text { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>الشبكة السورية الكبرى 💀🔥</header>
+<div class="app-container">
+    <header>الشبكة السورية الكبرى ⚡</header>
 
-    <!-- شريط القصص (Stories) -->
-    <div class="stories-container" id="storiesBar">
-        <div class="story-circle" onclick="promptAddStory()">
-            <div class="story-inner">+ قصة</div>
+    <!-- شريط القصص -->
+    <div class="stories-wrapper" id="storiesBar">
+        <div class="story-item">
+            <div class="story-avatar">قصص</div>
         </div>
     </div>
 
-    <!-- صندوق النشر (يدعم نصوص + صور/فيديوهات) -->
-    <div class="post-box">
-        <input type="text" id="authorName" placeholder="اسمك الكريم (الـ GOAT)..." value="أحمد علي عمران">
-        <textarea id="postContent" placeholder="بشو عم تخطط يا ملك؟..."></textarea>
-        <input type="text" id="mediaUrl" placeholder="رابط فيديو أو صورة (اختياري)...">
-        <button onclick="createPost()">إطلاق المنشور في الإمبراطورية 🚀</button>
+    <!-- صندوق إضافة قصة -->
+    <div class="card-box" style="padding: 14px;">
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="storyMediaUrl" placeholder="رابط صورة أو فيديو للقصة..." style="margin-bottom:0;">
+            <button class="btn-primary" onclick="createStory()" style="width: 130px; padding: 10px;">نشر قصة</button>
+        </div>
     </div>
 
-    <!-- الحائط الرئيسي (Feed) -->
+    <!-- صندوق النشر الرئيسي -->
+    <div class="card-box">
+        <div class="input-group">
+            <input type="text" id="authorName" placeholder="اسمك الكريم..." value="أحمد علي عمران">
+        </div>
+        <div class="input-group">
+            <textarea id="postContent" placeholder="بشو عم تخطط يا ملك؟..."></textarea>
+        </div>
+        <div class="input-group">
+            <input type="text" id="mediaUrl" placeholder="رابط صورة أو فيديو (اختياري)..." style="margin-bottom: 14px;">
+        </div>
+        <button class="btn-primary" onclick="createPost()">نشر في الإمبراطورية 🚀</button>
+    </div>
+
+    <div id="serverStatus" class="status-text"></div>
+
+    <!-- حائط المنشورات -->
     <div id="postsFeed">
-        <p style="text-align: center; color: #777;">جاري استدعاء البيانات من السيرفر المرعب...</p>
+        <p style="text-align: center; color: var(--text-muted); padding: 20px;">جاري إيقاظ السيرفر وتحميل البيانات...</p>
     </div>
 </div>
 
 <script>
-    // رابط الباك إند الحي الخاص بك على Render
     const API_URL = "https://syrian-social-matrix.onrender.com";
 
     async function fetchFeed() {
+        let statusEl = document.getElementById("serverStatus");
+        statusEl.innerText = "جاري الاتصال بقاعدة البيانات السحابية...";
         try {
             let res = await fetch(`${API_URL}/api/feed`);
             let data = await res.json();
             let feed = document.getElementById("postsFeed");
+            statusEl.innerText = "";
 
             if (data.feed.length === 0) {
-                feed.innerHTML = '<p style="text-align: center; color: #777;">الإمبراطورية هادئة جداً الآن.. كن أول من يشعلها! 🔥</p>';
+                feed.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 20px;">الإمبراطورية جاهزة ولا توجد منشورات بعد.. انشر أول منشور! 🔥</p>';
                 return;
             }
 
@@ -86,16 +171,17 @@
                 
                 let mediaHtml = "";
                 if (p.media_url) {
-                    // فحص بسيط إذا كان الرابط فيديو أو صورة
                     if (p.media_url.includes(".mp4") || p.media_url.includes("video")) {
-                        mediaHtml = `<div class="media-container"><video src="${p.media_url}" controls></video></div>`;
+                        mediaHtml = `<div class="media-box"><video src="${p.media_url}" controls></video></div>`;
                     } else {
-                        mediaHtml = `<div class="media-container"><img src="${p.media_url}" alt="Media"></div>`;
+                        mediaHtml = `<div class="media-box"><img src="${p.media_url}" alt="Media"></div>`;
                     }
                 }
 
                 card.innerHTML = `
-                    <div class="post-author">${p.author}</div>
+                    <div class="post-header">
+                        <div class="post-author">${p.author}</div>
+                    </div>
                     <div class="post-content">${p.content}</div>
                     ${mediaHtml}
                     <div class="post-footer">
@@ -106,8 +192,8 @@
                 feed.appendChild(card);
             });
         } catch (e) {
-            console.error(e);
-            document.getElementById("postsFeed").innerHTML = '<p style="text-align: center; color: #ff4757;">خطأ في الاتصال بالقلب النابض للسيرفر! ⚠️</p>';
+            document.getElementById("postsFeed").innerHTML = '<p style="text-align: center; color: #ff4757; padding: 20px;">فشل الاتصال بالسيرفر. (جاري إيقاظه، يرجى تحديث الصفحة بعد ثوانٍ) ⚠️</p>';
+            statusEl.innerText = "";
         }
     }
 
@@ -145,9 +231,7 @@
             let res = await fetch(`${API_URL}/api/post/like/${id}`, { method: "POST" });
             let data = await res.json();
             document.getElementById(`likes-${id}`).innerText = data.likes;
-        } catch (e) {
-            console.error("فشل تسجيل الإعجاب");
-        }
+        } catch (e) {}
     }
 
     async function fetchStories() {
@@ -156,27 +240,26 @@
             let data = await res.json();
             let bar = document.getElementById("storiesBar");
             
-            // ابقاء زر إضافة قصة أولاً
-            bar.innerHTML = `
-                <div class="story-circle" onclick="promptAddStory()">
-                    <div class="story-inner">+ قصة</div>
-                </div>
-            `;
+            bar.innerHTML = `<div class="story-item"><div class="story-avatar">قصص</div></div>`;
 
             data.stories.forEach(s => {
                 let div = document.createElement("div");
-                div.className = "story-circle";
-                div.innerHTML = `<div class="story-inner">${s.author}</div>`;
+                div.className = "story-item";
+                div.innerHTML = `<div class="story-avatar">${s.author}</div>`;
                 div.onclick = () => window.open(s.media_url, '_blank');
                 bar.appendChild(div);
             });
         } catch (e) {}
     }
 
-    async function promptAddStory() {
+    async function createStory() {
         let author = document.getElementById("authorName").value.trim() || "الـ GOAT";
-        let media_url = prompt("أدخل رابط الوسائط أو الفيديو الخاص بالقصة (Story):");
-        if (!media_url) return;
+        let media_url = document.getElementById("storyMediaUrl").value.trim();
+
+        if (!media_url) {
+            alert("أدخل رابط القصة أولاً!");
+            return;
+        }
 
         let res = await fetch(`${API_URL}/api/story/create`, {
             method: "POST",
@@ -185,12 +268,12 @@
         });
 
         if (res.ok) {
+            document.getElementById("storyMediaUrl").value = "";
             fetchStories();
-            alert("تم بث القصة بنجاح 🚀");
+            alert("تم نشر القصة بنجاح 🚀");
         }
     }
 
-    // التشغيل والتحميل التلقائي
     fetchFeed();
     fetchStories();
 </script>
